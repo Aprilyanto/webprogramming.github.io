@@ -1,0 +1,462 @@
+:root {
+  --primary: #1eac05;
+  --bg: #fff;
+  --font: #000;
+}
+
+* {
+  margin: 0; /* untuk reset */
+  padding: 0; /* untuk reset */
+  box-sizing: border-box; /* agar tidak perlu ngatur lagi dimensi dari elemen, misal border atau padding */
+  outline: none; /* berguna ketika kita mau ngasih syle untuk form untuk button */
+  border: none; /* Supaya kita punya kendali atas semua border nya */
+  text-decoration: none; /* Supaya ga ada garis bawah nya ketika buat link */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Serif", sans-serif;
+  background-color: var(--bg);
+  color: var(--primary);
+}
+
+body .hero {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+/* NavBar */
+.navbar {
+  display: flex; /* Agar NavBar tampilannya flex/flexible di semua device */
+  justify-content: space-between; /* Jarak antar elemen sejajar kiri kanan sama rata (secara horizontal) */
+  align-items: center; /* Jarak antar elemen sejajar kiri kanan sama rata (secara vertikal) */
+  padding: 1.4rem 7%; /* Satuan rem (relatif terhadap 16 pixel = 1.4 * 16 atas bawah dan akan selalu menyesuaikan 7% kiri kanan) karena di awal sengaja ga di set berapa. */
+  background-color: var(--primary); /* rgb (a = transparansi warna; 0,8 = 80% transparansi) agar warna ga terlalu solid */
+  border-bottom: 1px solid var(--font);
+  position: fixed; /* Membuat NavBar diam diatas ketika di scroll */
+  top: 0; /* Bertahan mentok ke atas */
+  left: 0; /* Supaya ukuran nya penuh satu layar (tarik ke kiri dan kanan) */
+  right: 0; /* Supaya ukuran nya penuh satu layar (tarik ke kiri dan kanan) */
+  z-index: 9999; /* z-index dibuat angka nya paling besar sehingga ga ada elemen lain yang mengalahkan urutan tumpukan nya dengan tujuan membuat navbar nya selalu berada di paling atas */
+}
+
+.navbar .navbar-logo {
+  font-size: 2rem; /* Diibikin besar, 2rem = 2 * 16 pixel */
+  font-weight: 700; /* font-weight = bold font */
+  color: var(--bg); /* font color */
+  font-style: italic;
+  display: flex;
+}
+
+.navbar .navbar-nav a {
+  color: var(--bg);
+  display: inline-block; /* a itu display nya inline, ga bisa diberi margin. Jika mau diatur margin tanpa membuat a turun ke bawah, maka diberi display : inline yang block, walau turun ke bawah tapi bisa di beri margin */
+  font-size: 1.3rem;
+  margin: 0 1rem; /* 0 = atas bawah, 1rem = kiri kanan. Fokus set kiri kanan saja */ /* 1rem = 1 * 16 pixel */
+}
+
+.navbar .navbar-nav a:hover {
+  color: var(--font); /* hover = pergerakan mouse yang jika menghampiri elemen tersebut akan melakukan action */
+}
+
+.navbar .navbar-nav a::after {
+  content: "";
+  display: block;
+  padding-bottom: 0.5rem; /* jarak antar elemen ke garis bawah yang akan dibuat */
+  border-bottom: 0.1rem solid var(--bg); /* Buat garis nya dengan warna bg */
+  transform: scaleX(0); /* dibikin garis nya lebih kecil sampai tidak kelihatan */
+  transition: 0.2s linear;
+}
+
+.navbar .navbar-nav a:hover::after {
+  transform: scaleX(0.5); /* dikeluarin garis nya ketika mouse mendekati elemen (hover) */
+}
+
+.navbar .navbar-extra a {
+  color: #fff;
+  margin: 0 0.5rem;
+}
+
+.navbar .navbar-extra a:hover {
+  color: var(--font);
+}
+
+#hamburger-menu {
+  display: none;
+}
+
+/* Hero Section */
+.hero { /* elemen utama atau elemen pembungkusnya */
+  min-height: 100vh; /* Penuh satu layar = 100vh */
+  display: grid; /* Supaya nanti main content ini berada persis ditengah hero nya secara vertikal */
+  position: relative; /* relative = non static, agar tidak saling menimpa maju 1 dimensi */
+  width: 100%;
+  place-items: center;
+  overflow: hidden;
+}
+
+.hero .title h2 {
+  position: relative;
+  margin: auto;
+  bottom: 180px;
+}
+
+.hero .content {
+  position: absolute;
+  display: flex;
+  bottom: 180px;
+  width: calc(250px * 16);
+  scale: 150%;
+  animation: scroll 40s linear infinite;
+}
+
+.hero .content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(calc(-250px * 8));
+  }
+}
+
+.hero .content .slide {
+  height: 100px;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  perspective: 100px;
+}
+
+.hero .content .slide img {
+  width: 100%;
+  transition: transform 1s;
+}
+
+.hero .content .slide img:hover {
+  transform: translateZ(20px);
+}
+
+/* Gradient Shadow */
+.hero::before,
+.hero::after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  content: '';
+  height: 100%;
+  position: absolute;
+  width: 15%;
+  z-index: 2;
+}
+
+.hero::before {
+  left: 0;
+  top: 0;
+}
+
+.hero::after{
+  right: 0;
+  top: 0;
+  transform: rotateZ(180deg);
+}
+
+/* About Section */
+.about,
+.WMAN2,
+.contact {
+  padding: 10rem 7% 1.4rem;
+}
+
+.title h2,
+.about h2,
+.WMAN2 h2,
+.contact h2 {
+  text-align: center;
+  font-size: 2.6rem;
+  margin-bottom: 8rem;
+}
+
+.title h2 span,
+.about h2 span,
+.WMAN2 h2 span,
+.contact h2 span {
+  color: var(--font);
+}
+
+.about .row {
+  display: flex;
+}
+
+.about .row .about-img {
+  flex: 1 1 45rem;
+}
+
+.about .row .about-img img {
+  width: 100%;
+}
+
+.about .row .content {
+  flex: 1 1 35rem;
+  padding: 0 1rem;
+}
+
+.about .row .content h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.about .row .content p {
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+  font-weight: 100;
+  line-height: 1.6;
+}
+
+.about .row .content .degree {
+  position: relative;
+  right: 400px;
+}
+
+.about .motto {
+  color: var(--primary);
+  text-align: center;
+  scale: 200%;
+}
+
+/* WMAN2 Section */
+.WMAN2 h2,
+.contact h2 {
+  margin-bottom: 1rem;
+}
+
+.contact p {
+  text-align: center;
+  max-width: 30rem;
+  margin: auto;
+  font-weight: 100;
+  line-height: 1.6;
+}
+
+.WMAN2 p {
+  text-align: center;
+  max-width: 17rem;
+  margin: auto;
+  font-weight: 100;
+  line-height: 1.6;
+}
+
+.WMAN2 .row {
+  display: flex;
+  margin-top: 5rem;
+  justify-content: center;
+}
+
+.WMAN2 .row .OpsiKenapa {
+  text-align: center;
+  padding-bottom: 10rem;
+}
+
+.WMAN2 .row .OpsiKenapa img{
+  border-radius: 50%;
+  width: 30%;
+}
+
+.WMAN2 .row .OpsiKenapa .OpsiKenapa-title {
+  margin: 1rem auto 0.5rem;
+}
+
+/* Contact Section */
+.contact .row {
+  display: flex;
+  margin-top: 2rem;
+  background-color: #222;
+}
+
+.contact .row h2 {
+display: flex;
+justify-content: center;
+}
+
+.contact .row .map {
+  flex: 1 1 45rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.contact .row form {
+  flex: 1 1 45rem;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.contact .row form .input-group {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  background-color: var(--bg);
+  border: 1px solid #eee;
+  padding-left: 2rem;
+}
+
+.contact .row form .input-group input {
+  width: 100%;
+  padding: 2rem;
+  font-size: 1.7rem;
+  background: none;
+  color: #fff;
+}
+
+.contact .row form .btn {
+  margin-top: 3rem;
+  display: inline-block;
+  padding: 1rem 3rem;
+  font-size: 1.7rem;
+  color: #fff;
+  background-color: var(--primary);
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary);
+  text-align: center;
+  padding: 1rem 0 3rem;
+  margin-top: 3rem;
+}
+
+footer .socials {
+  padding: 1rem 0;
+}
+
+footer .socials a {
+  color: #fff;
+  margin: 1rem;
+}
+
+footer .socials a:hover,
+footer .links a:hover {
+  color: var(--bg);
+}
+
+footer .links {
+  margin-bottom: 1.4rem;
+}
+
+footer .links a {
+  color: #fff;
+  padding: 0.7rem 1rem;
+}
+
+footer .credit {
+  font-size: 0.8rem;
+}
+
+footer .credit a {
+  color: var(--bg);
+  font-weight: 700;
+}
+
+/* MEDIA QUERIES */
+/* Laptop */
+@media (max-width: 1366px) {
+  html {
+    font-size: 75%;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  html {
+    font-size: 62.5%;
+  }
+
+  #hamburger-menu {
+    display: inline-block; /* Memunculkan menu pada saat dimensi tablet ke bawah */
+  }
+
+  .navbar .navbar-nav { /* Ingat seperti morphing transition di PPT. Mengeluarkan elemen keluar frame */
+    position: absolute; /* absolute = Dengan mudah menggerakan tanpa mengganggu elemen disekitarnya */
+    top: 100%; /* Pas in ke atas (mentokin lah istilahnya) */
+    right: -100%; /* -100 = Keluar dari frame */
+    background-color: var(--primary);
+    width: 30rem; /* width = lebar */
+    height: 100vh; /* height = tinggi */
+    transition: 0.3s; /* Animasi transisi setelah dibuat kode js */
+  }
+
+  .navbar .navbar-nav.active {
+    right: 0;
+  }
+
+  .navbar .navbar-nav a {
+    color: var(--bg);
+    display: block; /* block = Akan membuat semua elemen nya turun ke bawah */
+    margin: 1.5rem; /* margin = disekitarnya (kiri kanan) */
+    padding: 0.5rem; /* padding = jarak (atas bawah) */
+    font-size: 2rem; /* font-size = ukuran huruf */
+  }
+
+  .navbar .navbar-nav a::after {
+    transform-origin: 0 0; /* Buat garis animasi dibawah elemen pindah ke pojok kiri */
+  }
+
+  .navbar .navbar-nav a:hover::after {
+    transform: scaleX(0.2);
+  }
+
+  /* Positioning img dengan elemen yang secara otomatis akan move ke bawah */
+  .about .row {
+    flex-wrap: wrap;
+  }
+
+  /* Mengatur ulang img yang terlalu tinggi */
+  .about .row .about-img img {
+    height: 24rem;
+    object-fit: cover; /* Membuat img tidak lonjong ke samping */
+    object-position: center; /* Positioning img focus. center = fokus nya ke tengah */
+  }
+
+  .about .row .content {
+    padding: 0;
+  }
+
+  .about .row .content h3 {
+    margin-top: 1rem;
+    font-size: 2rem;
+  }
+
+  .about .row .content p {
+    font-size: 1.6rem;
+  }
+
+  .WMAN2 p {
+    font-size: 1.2rem;
+  }
+
+  .contact .row {
+    flex-wrap: wrap;
+  }
+
+  .contact .row .map {
+    height: 30rem;
+  }
+
+  .contact .row form {
+    padding-top: 0;
+  }
+
+}
+
+/* Mobile Phone */
+@media (max-width: 450px) {
+  html {
+    font-size: 55%;
+  }
+}
